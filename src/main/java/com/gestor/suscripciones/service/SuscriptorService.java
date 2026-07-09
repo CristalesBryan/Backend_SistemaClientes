@@ -199,12 +199,7 @@ public class SuscriptorService {
     }
 
     private Suscriptor mapRequestToEntity(Suscriptor suscriptor, SuscriptorRequest request) {
-        String usuario = request.getUsuarioTelegram().trim();
-        if (!usuario.startsWith("@")) {
-            usuario = "@" + usuario;
-        }
-
-        suscriptor.setUsuarioTelegram(usuario);
+        suscriptor.setUsuarioTelegram(request.getUsuarioTelegram().trim());
         suscriptor.setTipoServicio(request.getTipoServicio().trim());
         suscriptor.setDescripcion(request.getDescripcion());
         suscriptor.setTiempoServicio(request.getTiempoServicio());

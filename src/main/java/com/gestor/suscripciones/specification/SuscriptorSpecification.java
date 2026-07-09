@@ -20,9 +20,6 @@ public final class SuscriptorSpecification {
 
             if (usuario != null && !usuario.isBlank()) {
                 String term = usuario.trim().toLowerCase();
-                if (!term.startsWith("@")) {
-                    term = "@" + term;
-                }
                 predicates.add(cb.like(cb.lower(root.get("usuarioTelegram")), "%" + term + "%"));
             }
 

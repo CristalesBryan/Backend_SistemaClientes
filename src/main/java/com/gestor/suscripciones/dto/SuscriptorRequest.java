@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Data
 public class SuscriptorRequest {
 
-    @NotBlank(message = "El usuario de Telegram es obligatorio")
-    @Pattern(regexp = "^@?[a-zA-Z0-9_]{5,32}$", message = "Usuario de Telegram inválido")
+    @NotBlank(message = "El nombre o usuario es obligatorio")
+    @Size(min = 2, max = 200, message = "Debe tener entre 2 y 200 caracteres")
     private String usuarioTelegram;
 
     @NotBlank(message = "El tipo de servicio es obligatorio")
