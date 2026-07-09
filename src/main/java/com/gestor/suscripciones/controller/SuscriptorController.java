@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/suscriptores")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class SuscriptorController {
 
     private final SuscriptorService service;

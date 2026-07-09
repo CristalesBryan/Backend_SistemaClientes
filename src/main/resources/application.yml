@@ -23,7 +23,7 @@ server:
 
 app:
   cors:
-    allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
+    allowed-origins: ${CORS_ORIGINS:http://localhost:4200,https://frontendsistemaclientes-production.up.railway.app}
 
 logging:
   level:
