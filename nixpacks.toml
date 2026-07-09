@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["...", "maven", "jdk17"]
+
+[phases.build]
+cmds = ["mvn -DskipTests clean package"]
+
+[phases.start]
+cmd = "java -jar target/suscripciones-api-1.0.0.jar"

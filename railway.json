@@ -1,0 +1,12 @@
+{
+  "railway": {
+    "build": {
+      "builder": "NIXPACKS"
+    },
+    "deploy": {
+      "startCommand": "java -jar target/suscripciones-api-1.0.0.jar",
+      "healthcheckPath": "/api/dashboard/resumen",
+      "restartPolicyType": "ON_FAILURE"
+    }
+  }
+}
