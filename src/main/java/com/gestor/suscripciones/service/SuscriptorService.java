@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -148,11 +149,15 @@ public class SuscriptorService {
                 .map(SuscriptorResponse::fromEntity)
                 .collect(Collectors.toList());
 
+        int mes = LocalDate.now().getMonthValue();
+        int anio = LocalDate.now().getYear();
+        Double ingresosMes = repository.calcularIngresosMes(mes, anio);
+
         return DashboardResumen.builder()
                 .totalActivos(repository.countActivos(hoy, EstadoRenovacion.NO_RENOVADO))
                 .vencenEstaSemana(repository.countVencenEstaSemana(hoy, finSemana))
                 .vencidosSinRenovar(repository.countVencidosSinRenovar(hoy, EstadoRenovacion.RENOVADO))
-                .ingresosDelMes(repository.sumIngresosDelMes(hoy.getYear(), hoy.getMonthValue()))
+                .ingresosDelMes(BigDecimal.valueOf(ingresosMes != null ? ingresosMes : 0))
                 .suscripcionesPorEstado(porEstado)
                 .proximosAVencer(proximos)
                 .build();
