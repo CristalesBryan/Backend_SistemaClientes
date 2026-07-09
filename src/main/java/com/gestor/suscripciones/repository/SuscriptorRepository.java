@@ -30,8 +30,12 @@ public interface SuscriptorRepository extends JpaRepository<Suscriptor, Long>, J
     @Query("SELECT COUNT(s) FROM Suscriptor s WHERE s.fechaVencimiento < :hoy AND s.estadoRenovacion <> :renovado")
     long countVencidosSinRenovar(@Param("hoy") LocalDate hoy, @Param("renovado") EstadoRenovacion renovado);
 
-    @Query("SELECT COALESCE(SUM(s.montoPagado), 0) FROM Suscriptor s WHERE s.fechaPago BETWEEN :inicio AND :fin")
-    BigDecimal sumIngresosDelMes(@Param("inicio") LocalDate inicio, @Param("fin") LocalDate fin);
+    @Query("""
+            SELECT COALESCE(SUM(s.montoPagado), 0) FROM Suscriptor s
+            WHERE YEAR(COALESCE(s.fechaPago, s.fechaInicio, CAST(s.creadoEn AS localdate))) = :year
+              AND MONTH(COALESCE(s.fechaPago, s.fechaInicio, CAST(s.creadoEn AS localdate))) = :month
+            """)
+    BigDecimal sumIngresosDelMes(@Param("year") int year, @Param("month") int month);
 
     @Query("SELECT s.tipoServicio FROM Suscriptor s GROUP BY s.tipoServicio ORDER BY s.tipoServicio")
     List<String> findDistinctTiposServicio();

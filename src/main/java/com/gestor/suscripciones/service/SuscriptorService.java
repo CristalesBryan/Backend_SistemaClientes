@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -135,7 +134,6 @@ public class SuscriptorService {
     public DashboardResumen obtenerResumenDashboard() {
         LocalDate hoy = LocalDate.now();
         LocalDate finSemana = hoy.plusDays(7);
-        YearMonth mesActual = YearMonth.now();
 
         Map<String, Long> porEstado = new LinkedHashMap<>();
         for (EstadoRenovacion estado : EstadoRenovacion.values()) {
@@ -154,7 +152,7 @@ public class SuscriptorService {
                 .totalActivos(repository.countActivos(hoy, EstadoRenovacion.NO_RENOVADO))
                 .vencenEstaSemana(repository.countVencenEstaSemana(hoy, finSemana))
                 .vencidosSinRenovar(repository.countVencidosSinRenovar(hoy, EstadoRenovacion.RENOVADO))
-                .ingresosDelMes(repository.sumIngresosDelMes(mesActual.atDay(1), mesActual.atEndOfMonth()))
+                .ingresosDelMes(repository.sumIngresosDelMes(hoy.getYear(), hoy.getMonthValue()))
                 .suscripcionesPorEstado(porEstado)
                 .proximosAVencer(proximos)
                 .build();
@@ -215,7 +213,10 @@ public class SuscriptorService {
         );
         suscriptor.setMetodoPago(request.getMetodoPago());
         suscriptor.setMontoPagado(request.getMontoPagado());
-        suscriptor.setFechaPago(request.getFechaPago() != null ? request.getFechaPago() : request.getFechaInicio());
+        LocalDate fechaPago = request.getFechaPago() != null
+                ? request.getFechaPago()
+                : (request.getFechaInicio() != null ? request.getFechaInicio() : LocalDate.now());
+        suscriptor.setFechaPago(fechaPago);
         suscriptor.setNotas(request.getNotas());
         return suscriptor;
     }
