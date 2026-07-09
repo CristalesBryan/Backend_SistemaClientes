@@ -1,11 +1,8 @@
 {
-  "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "buildCommand": "./mvnw -DskipTests clean package -q"
+    "buildCommand": "mvn -DskipTests clean package -q"
   },
   "deploy": {
-    "startCommand": "java -jar target/suscripciones-api-1.0.0.jar",
-    "healthcheckPath": "/api/dashboard/resumen",
-    "restartPolicyType": "ON_FAILURE"
+    "startCommand": "java -jar target/*.jar"
   }
 }
