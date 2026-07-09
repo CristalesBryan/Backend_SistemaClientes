@@ -11,13 +11,11 @@ com\gestor\suscripciones\controller\SuscriptorController.class
 com\gestor\suscripciones\dto\DashboardResumen$DashboardResumenBuilder.class
 com\gestor\suscripciones\model\MetodoPago.class
 com\gestor\suscripciones\dto\SuscriptorResponse$SuscriptorResponseBuilder.class
-com\gestor\suscripciones\config\WebConfig.class
 com\gestor\suscripciones\repository\SuscriptorRepository.class
 com\gestor\suscripciones\scheduler\VencimientoScheduler.class
 com\gestor\suscripciones\util\FechaVencimientoCalculator.class
 com\gestor\suscripciones\specification\SuscriptorSpecification.class
 com\gestor\suscripciones\SuscripcionesApplication.class
-com\gestor\suscripciones\config\WebConfig$1.class
 com\gestor\suscripciones\exception\GlobalExceptionHandler.class
 com\gestor\suscripciones\model\Suscriptor.class
 com\gestor\suscripciones\exception\ResourceNotFoundException.class

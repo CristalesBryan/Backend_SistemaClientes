@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -158,9 +160,19 @@ public class SuscriptorService {
                 .build();
     }
 
+    private static final List<String> TIPOS_PREDEFINIDOS = List.of(
+            "Canal Premium",
+            "VIP",
+            "Señales Pro",
+            "Mentoría",
+            "Acceso Exclusivo"
+    );
+
     @Transactional(readOnly = true)
     public List<String> listarTiposServicio() {
-        return repository.findDistinctTiposServicio();
+        LinkedHashSet<String> tipos = new LinkedHashSet<>(TIPOS_PREDEFINIDOS);
+        tipos.addAll(repository.findDistinctTiposServicio());
+        return new ArrayList<>(tipos);
     }
 
     @Transactional
